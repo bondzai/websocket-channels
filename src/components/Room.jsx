@@ -57,8 +57,6 @@ const Room = () => {
         }
     };
 
-
-
     const handleClearClick = () => {
         setMessages([]);
     };
