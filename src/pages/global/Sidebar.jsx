@@ -1,22 +1,19 @@
-import "react-pro-sidebar/dist/css/styles.css";
+// Sidebar.jsx
+
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import { tokens } from "../../theme";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import "react-pro-sidebar/dist/css/styles.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import { tokens } from "../../theme";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+const Item = ({ title, to, icon, selected, setSelected, colors }) => {
     return (
         <MenuItem
             active={selected === title}
-            style={{
-                color: colors.grey[100],
-            }}
+            style={{ color: colors.grey[100] }}
             onClick={() => setSelected(title)}
             icon={icon}
         >
@@ -31,6 +28,48 @@ const Sidebar = () => {
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
+
+    const toggleCollapsed = () => setIsCollapsed(!isCollapsed);
+
+    const renderHeader = () => {
+        if (isCollapsed) return null;
+        return (
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                ml="15px"
+            >
+                <Typography variant="h4" color={colors.grey[100]}>
+                    &copy; JB
+                </Typography>
+                <IconButton onClick={toggleCollapsed}>
+                    <MenuOutlinedIcon />
+                </IconButton>
+            </Box>
+        );
+    };
+
+    const renderSidebarContent = () => {
+        if (isCollapsed) return null;
+        return (
+            <Box mb="25px">
+                <Box textAlign="center">
+                    <Typography
+                        variant="h4"
+                        color={colors.grey[100]}
+                        fontWeight="bold"
+                        sx={{ m: "10px 0 0 0" }}
+                    >
+                        Websocket-channels
+                    </Typography>
+                    <Typography variant="h6" color={colors.greenAccent[500]}>
+                        for development
+                    </Typography>
+                </Box>
+            </Box>
+        );
+    };
 
     return (
         <Box
@@ -55,48 +94,13 @@ const Sidebar = () => {
             <ProSidebar collapsed={isCollapsed}>
                 <Menu iconShape="square">
                     <MenuItem
-                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        onClick={toggleCollapsed}
                         icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-                        style={{
-                            margin: "10px 0 20px 0",
-                            color: colors.grey[100],
-                        }}
+                        style={{ margin: "10px 0 20px 0", color: colors.grey[100] }}
                     >
-                        {!isCollapsed && (
-                            <Box
-                                display="flex"
-                                justifyContent="space-between"
-                                alignItems="center"
-                                ml="15px"
-                            >
-                                <Typography variant="h4" color={colors.grey[100]}>
-                                    &copy; JB
-                                </Typography>
-                                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                                    <MenuOutlinedIcon />
-                                </IconButton>
-                            </Box>
-                        )}
+                        {renderHeader()}
                     </MenuItem>
-
-                    {!isCollapsed && (
-                        <Box mb="25px">
-                            <Box textAlign="center">
-                                <Typography
-                                    variant="h4"
-                                    color={colors.grey[100]}
-                                    fontWeight="bold"
-                                    sx={{ m: "10px 0 0 0" }}
-                                >
-                                    Websocket-channels
-                                </Typography>
-                                <Typography variant="h6" color={colors.greenAccent[500]}>
-                                    for development
-                                </Typography>
-                            </Box>
-                        </Box>
-                    )}
-
+                    {renderSidebarContent()}
                     <Box paddingLeft={isCollapsed ? undefined : "10%"}>
                         <Item
                             title="Dashboard"
@@ -104,6 +108,7 @@ const Sidebar = () => {
                             icon={<HomeOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
+                            colors={colors}
                         />
                     </Box>
                 </Menu>

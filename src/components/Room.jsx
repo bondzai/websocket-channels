@@ -98,13 +98,8 @@ const Room = () => {
 
     return (
         <Box>
-            <Box className='Room'
-                style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
-            >
-
-                <Box className='status-panel'
-                    style={{ margin: '30px' }}
-                >
+            <Box className='Room' style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <Box className='status-panel' style={{ margin: '30px', width: '60%', display: 'flex', alignItems: 'center', }}>
                     <input
                         type="text"
                         value={endpoint}
@@ -116,14 +111,15 @@ const Room = () => {
                             borderRadius: '5px',
                             marginRight: '10px',
                             fontSize: '1.2em',
-                            width: '500px',
+                            width: '80%',
                             backgroundColor: "white",
                         }}
                     />
-                    <div style={connectedStyle}></div>
-                    {isConnected ? 'Connected' : 'Disconnected'}
+                    <Box>
+                        <div style={connectedStyle}></div>
+                        {isConnected ? 'Connected' : 'Disconnected'}
+                    </Box>
                 </Box>
-
                 <Box className='messages'
                     style={{
                         padding: '16px',
@@ -143,8 +139,6 @@ const Room = () => {
                         {renderMessages()}
                     </ul>
                 </Box>
-
-
                 <Box className='control-panel'>
                     <button onClick={handleToggleClick} disabled={isConnecting}>{isConnecting ? 'Connecting...' : (isConnected ? 'Disconnect' : 'Connect')}</button>
                     <button onClick={handleClearClick}>Clear Data</button>
