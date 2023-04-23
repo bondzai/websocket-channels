@@ -81,8 +81,10 @@ const Room = () => {
                 <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
                     {messages.map((m, index) => (
                         <li key={index}
-                            style={{ padding: '10px', marginBottom: '5px', borderRadius: '5px', 
-                            backgroundColor: index % 2 === 0 ? colors.primary[400] : colors.primary[300] }}
+                            style={{
+                                padding: '10px', marginBottom: '5px', borderRadius: '5px',
+                                backgroundColor: index % 2 === 0 ? colors.primary[400] : colors.grey[700]
+                            }}
                         >
                             <div className="message-info">
                                 <span className="message-time">{new Date().toLocaleString()}</span>
@@ -109,6 +111,14 @@ const Room = () => {
                         value={endpoint}
                         onChange={(e) => setEndpoint(e.target.value)}
                         disabled={isConnected}
+                        style={{
+                            padding: '12px',
+                            border: '1px solid #ccc',
+                            borderRadius: '5px',
+                            marginRight: '10px',
+                            fontSize: '1.2em',
+                            width: '500px',
+                        }}
                     />
                     <div style={connectedStyle}></div>
                     {isConnected ? 'Connected' : 'Disconnected'}
@@ -117,7 +127,6 @@ const Room = () => {
                 <Box className='messages'
                     style={{
                         padding: '16px',
-                        border: '1px solid #ccc',
                         borderRadius: '5px',
                         marginBottom: '20px',
                         display: 'block',
