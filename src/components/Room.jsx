@@ -105,6 +105,7 @@ const Room = () => {
                         value={endpoint}
                         onChange={(e) => setEndpoint(e.target.value)}
                         disabled={isConnected}
+                        placeholder="Enter your websocket URL, wss://yoursite/yourendpoint/"
                         style={{
                             padding: '12px',
                             border: '1px solid #ccc',
