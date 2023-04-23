@@ -1,4 +1,3 @@
-import './Room.css';
 import { tokens } from "../theme";
 import React, { useState, useEffect } from 'react';
 import { Box, useTheme } from "@mui/material";
@@ -118,6 +117,7 @@ const Room = () => {
                             marginRight: '10px',
                             fontSize: '1.2em',
                             width: '500px',
+                            backgroundColor: "white",
                         }}
                     />
                     <div style={connectedStyle}></div>
