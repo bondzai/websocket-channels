@@ -1,5 +1,3 @@
-// Sidebar.jsx
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -91,7 +89,14 @@ const Sidebar = () => {
                 },
             }}
         >
-            <ProSidebar collapsed={isCollapsed}>
+            <ProSidebar 
+                collapsed={isCollapsed}
+                // style={{
+                //     overflowY: 'scroll',
+                //     scrollbarWidth: '10px',
+                //     ScrollbarTrackColor: colors.primary[400],
+                // }}
+            >
                 <Menu iconShape="square">
                     <MenuItem
                         onClick={toggleCollapsed}

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Topbar from "./pages/global/Topbar";
-import Sidebar from "./pages/global/Sidebar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Room from "./components/Room";
+import Topbar from "./pages/global/Topbar";
+import Sidebar from "./pages/global/Sidebar";
+import PageRoom from "./pages/PageRoom";
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -19,7 +19,7 @@ function App() {
                     <main className="content">
                         <Topbar setIsSidebar={setIsSidebar} />
                         <Routes>
-                            <Route path="/" element={<Room />} />
+                            <Route path="/" element={<PageRoom />} />
                         </Routes>
                     </main>
                 </div>

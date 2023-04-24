@@ -1,6 +1,6 @@
 import { tokens } from "../theme";
 import React, { useState, useEffect } from 'react';
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, Toolbar, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
 
 const Room = () => {
     const theme = useTheme();
@@ -8,8 +8,8 @@ const Room = () => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
-    const [endpoint, setEndpoint] = useState('wss://aot-dev.sitearound.com/ws/airport/BKK/');
     const [isConnecting, setIsConnecting] = useState(false);
+    const [endpoint, setEndpoint] = useState('wss://aot-dev.sitearound.com/ws/airport/BKK/');
 
     useEffect(() => {
         if (socket) {
@@ -96,6 +96,16 @@ const Room = () => {
         )
     };
 
+    const endpointOptions = [
+        { value: "wss://aot-dev.sitearound.com/ws/rest-room/fmonrwp0uujqtnh5/", label: "rest-room" },
+        { value: "wss://aot-dev.sitearound.com/ws/airport/BKK/", label: "airport" },
+        { value: "wss://aot-dev.sitearound.com/ws/airport-device/BKK/", label: "airport-device" },
+    ];
+
+    const handleEndpointChange = (option) => {
+        setEndpoint(option.props.value);
+    };
+
     return (
         <Box>
             <Box className='Room' style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -105,6 +115,7 @@ const Room = () => {
                         value={endpoint}
                         onChange={(e) => setEndpoint(e.target.value)}
                         disabled={isConnected}
+                        placeholder="Enter your websocket URL, wss://yoursite/yourendpoint/"
                         style={{
                             padding: '12px',
                             border: '1px solid #ccc',
@@ -115,6 +126,24 @@ const Room = () => {
                             backgroundColor: "white",
                         }}
                     />
+                    <Toolbar className="projectToolbar">
+                        <FormControl fullWidth>
+                            <InputLabel>Select Endpoint</InputLabel>
+                            <Select
+                                label="Select your endpoint"
+                                variant="outlined"
+                                value={endpoint}
+                                onChange={(event, value) => handleEndpointChange(value)}
+                                sx={{ minWidth: '150px' }}
+                            >
+                                {endpointOptions.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Toolbar>
                     <Box>
                         <div style={connectedStyle}></div>
                         {isConnected ? 'Connected' : 'Disconnected'}
